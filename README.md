@@ -14,6 +14,8 @@ Make sure you have Postgresql installed.
 
 Next create and migrate your database with `mix ecto.create && mix ecto.migrate`.
 
+Then run `npm install`
+
 Start playing the game by running `mix phoenix.server`
 
 Now you can visit [`localhost:1234`](Tic Tac Toe) from your browser.
