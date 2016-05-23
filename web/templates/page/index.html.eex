@@ -1,8 +1,8 @@
-<div class="board">
+<div class="board <%= if @game_over == true do %> disabled <% end %>">
   <%= for row <- Board.rows(@board) do %>
     <div class="row">
       <%= for cell <- row do %>
-        <div class='wrapper'>
+        <div class="wrapper">
           <%= if Enum.member?(Board.available_positions(@board), cell) do %>
             <%= form_tag("/move", method: :post, class: :cell_form) %>
             <input class="hidden" type="hidden" name="move" value=<%= cell %>>
@@ -17,3 +17,7 @@
     </div>
   <% end %>
 </div>
+<%= if @game_over == true do %>
+  <p>Game over.</p>
+  <a href="/replay">Play again!</a>
+<% end %>

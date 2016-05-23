@@ -18,6 +18,7 @@ defmodule TicTacToe.Router do
 
     get "/", PageController, :index
     post "/move", PageController, :move
+    get "/replay", PageController, :replay
   end
 
   # Other scopes may use custom stacks.
