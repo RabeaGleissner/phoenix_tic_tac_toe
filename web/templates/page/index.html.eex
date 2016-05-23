@@ -1,11 +1,19 @@
 <div class="board">
-  <h2>Hello</h2>
   <%= for row <- Board.rows(@board) do %>
-    <%= for cell <- row do %>
-      <%= form_tag("/move", method: :post) %>
-      <input class="hidden" type="hidden" name="move" value=<%= cell %>>
-      <button class="cell" type="submit"><div class="empty"><%= cell %></div></button>
-      </form>
-    <% end %>
+    <div class="row">
+      <%= for cell <- row do %>
+        <div class='wrapper'>
+          <%= if Enum.member?(Board.available_positions(@board), cell) do %>
+            <%= form_tag("/move", method: :post, class: :cell_form) %>
+            <input class="hidden" type="hidden" name="move" value=<%= cell %>>
+            <button class="cell" type="submit"><div class="empty">&nbsp;</div>
+            </button>
+            </form>
+          <% else %>
+            <div class="cell full"><%= cell %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>

@@ -35,11 +35,9 @@ h2 {
   margin: 0 auto 40px;
 }
 
-.board.disabled {
-  button {
-    pointer-events: none;
-    cursor: default;
-  }
+.board.disabled button {
+  pointer-events: none;
+  cursor: default;
 }
 
 .row {
@@ -48,9 +46,10 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  &:last-child {
-    border: none;
-  }
+}
+
+.row:last-child {
+  border: none;
 }
 
 .wrapper {
@@ -65,9 +64,10 @@ h2 {
   display: -ms-flexbox;
   display: flex;
   border-right: 1px solid black;
-  &:last-child {
-    border: none;
-  }
+}
+
+.wrapper:last-child {
+  border: none;
 }
 
 .cell {
@@ -93,7 +93,7 @@ h2 {
   margin: 0 auto;
 }
 
-.cell-form {
+.cell_form {
   margin: 0 auto;
 }
 
@@ -111,34 +111,37 @@ h2.menu {
   margin-bottom: 20px;
 }
 
-.options-form {
-  p {
-    width: 290px;
-    margin: 20px auto;
-    text-align: center;
-    background-color: #e5e0e0;
-    padding: 16px 10px;
-    &:hover {
-      background-color: lightpink;
-      cursor: pointer;
-    }
-    label {
-      padding: 10px 26px;
-    }
-    input:hover, label:hover {
-      cursor: pointer;
-    }
-    input[type=radio] {
-      display: none;
-      &:checked + label {
-        font-weight: bold;
-        padding: 0;
-      }
-      &:checked + label:after {
-        content: " \2714";
-      }
-    }
-  }
+.options-form p {
+  width: 290px;
+  margin: 20px auto;
+  text-align: center;
+  background-color: #e5e0e0;
+  padding: 16px 10px;
+}
+
+.options-form p:hover {
+  background-color: lightpink;
+  cursor: pointer;
+}
+
+.options-form label {
+  padding: 10px 26px;
+}
+
+.options-form input:hover, .options-form label:hover {
+  cursor: pointer;
+}
+
+.options-form input[type=radio] {
+  display: none;
+}
+
+.options-form input[type=radio]:checked + label {
+  font-weight: bold;
+  padding: 0;
+}
+.options-form input[type=radio]:checked + label:after {
+  content: " \2714";
 }
 
 button, .play-again, .choose-game-option {
@@ -157,9 +160,10 @@ button, .play-again, .choose-game-option {
   font-size: 1em;
   text-decoration: none;
   vertical-align: middle;
-  &:focus {
-    outline:0;
-  }
+}
+
+button:focus {
+  outline:0;
 }
 
 .play-again {
