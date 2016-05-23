@@ -21,7 +21,8 @@ defmodule TicTacToe.PageController do
 
   def move(conn, params) do
     {_, board} = Board.place_mark(get_session(conn, :board), users_move(params))
-    conn = put_session(conn, :board, board)
+    new_board = UnbeatablePlayer.make_move(board)
+    conn = put_session(conn, :board, new_board)
     conn
     |> assign(:board, board)
     redirect conn, to: "/"
