@@ -1,16 +1,11 @@
 <div class="board">
   <h2>Hello</h2>
-
-  <div class="row">
-    <%= for row <- rows do %>
-      <div class="wrapper">
-        <%= for cell <- row do %>
-          <%= form_tag("/move", method: :post) %>
-          <input class="hidden" type="hidden" name="position" value=<%= cell%>>
-          <button class="cell" type="submit"><div class="empty">&nbsp;</div></button>
-          </form>
-        <% end %>
-      </div>
+  <%= for row <- Board.rows(@board) do %>
+    <%= for cell <- row do %>
+      <%= form_tag("/move", method: :post) %>
+      <input class="hidden" type="hidden" name="move" value=<%= cell %>>
+      <button class="cell" type="submit"><div class="empty"><%= cell %></div></button>
+      </form>
     <% end %>
-  </div>
+  <% end %>
 </div>
