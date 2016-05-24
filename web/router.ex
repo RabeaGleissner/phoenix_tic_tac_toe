@@ -17,7 +17,8 @@ defmodule TicTacToe.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    post "/move", PageController, :move
+    get "/game/:board", PageController, :game
+    get "/game/:board/:move", PageController, :make_move
     get "/replay", PageController, :replay
   end
 

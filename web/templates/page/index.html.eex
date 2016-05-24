@@ -4,11 +4,7 @@
       <%= for cell <- row do %>
         <div class="wrapper">
           <%= if Enum.member?(Board.available_positions(@board), cell) do %>
-            <%= form_tag("/move", method: :post, class: :cell_form) %>
-            <input class="hidden" type="hidden" name="move" value=<%= cell %>>
-            <button class="cell" type="submit"><div class="empty">&nbsp;</div>
-            </button>
-            </form>
+            <a class="cell-form cell empty" href="<%= @url%>/<%= cell %>"><%= cell %></a>
           <% else %>
             <div class="cell full"><%= cell %></div>
           <% end %>

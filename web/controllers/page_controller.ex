@@ -2,56 +2,55 @@ defmodule TicTacToe.PageController do
   use TicTacToe.Web, :controller
 
   def index(conn, _) do
-    conn = update_session(conn)
-    conn = clear_session_on_game_over(conn)
+    redirect conn, to: "/game/123456789"
+  end
 
+  def game(conn, %{"board" => board}) do
+    game_state = to_list(board)
     conn
-    |> assign(:board, get_session(conn, :board))
-    |> assign(:game_over, get_session(conn, :game_over))
+    |> assign(:board, game_state)
+    |> assign(:game_over, Board.game_over?(game_state))
+    |> assign(:url, board)
     |> render("index.html")
   end
 
-  def move(conn, params) do
-    board = Board.place_mark(get_session(conn, :board), users_move(params))
-    new_board =
-    if Board.game_over?(board) do
-      board
-    else
-      UnbeatablePlayer.make_move(board)
-    end
-    conn = put_session(conn, :board, new_board)
-    conn
-    |> assign(:board, board)
-    redirect conn, to: "/"
+  def make_move(conn, %{"board" => board, "move" => move}) do
+    game_state = to_list(board)
+    new_move = String.to_integer(move)
+    new_game_state = Board.place_mark(game_state, new_move)
+    game_state_url = convert_to_string(new_game_state)
+    redirect conn, to: "/game/#{game_state_url}"
   end
 
   def replay(conn, _) do
-      conn = put_session(conn, :board, Board.empty_board)
-    |> assign(:board, Board.empty_board)
-    |> assign(:game_over, get_session(conn, :game_over))
-    redirect conn, to: "/"
+    redirect conn, to: "/game/123456789"
   end
 
-  defp users_move(params) do
-    {number, _} = params["move"]
-                  |> Integer.parse
-    number
+  defp convert_to_string(list) do
+    Enum.join(list, "")
   end
 
-  defp clear_session_on_game_over(conn) do
-    if Board.game_over?(get_session(conn, :board)) do
-      conn = put_session(conn, :game_over, true)
-    else
-      conn = put_session(conn, :game_over, false)
+  defp to_list(board_string) do
+    board_string
+    |> String.split("")
+    |> List.delete("")
+    |> convert_to_numbers
+  end
+
+  defp convert_to_numbers(string_list) do
+    Enum.map(string_list, fn(x) ->
+      if is_number?(x) do
+        String.to_integer(x)
+      else
+        x
+      end
+    end)
+  end
+
+  defp is_number?(string) do
+    case Float.parse(string) do
+      {_num, ""} -> true
+      :error     -> false
     end
-    conn
-  end
-
-  defp update_session(conn) do
-    if get_session(conn, :board) == nil do
-      conn = put_session(conn, :board, Board.empty_board)
-      conn = put_session(conn, :game_over, false)
-    end
-    conn
   end
 end
