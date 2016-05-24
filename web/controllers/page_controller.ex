@@ -13,10 +13,11 @@ defmodule TicTacToe.PageController do
 
   def move(conn, params) do
     board = Board.place_mark(get_session(conn, :board), users_move(params))
+    new_board =
     if Board.game_over?(board) do
-      new_board = board
+      board
     else
-      new_board = UnbeatablePlayer.make_move(board)
+      UnbeatablePlayer.make_move(board)
     end
     conn = put_session(conn, :board, new_board)
     conn
