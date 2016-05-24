@@ -4,7 +4,7 @@
       <%= for cell <- row do %>
         <div class="wrapper">
           <%= if Enum.member?(Board.available_positions(@board), cell) do %>
-            <a class="cell-form cell empty" href="<%= @url%>/<%= cell %>"><%= cell %></a>
+            <a class="cell-form cell empty" href="<%= @url%>/<%= cell %>">&nbsp;</a>
           <% else %>
             <div class="cell full"><%= cell %></div>
           <% end %>
