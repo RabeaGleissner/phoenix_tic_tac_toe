@@ -2,6 +2,7 @@ defmodule TicTacToe.PageControllerTest do
   use TicTacToe.ConnCase
 
   @empty_board "123456789"
+  @empty_board_url "/game/123456789"
 
   test "get request to root redirects user to a new game", %{conn: conn} do
     conn = get conn, "/"
@@ -10,7 +11,7 @@ defmodule TicTacToe.PageControllerTest do
   end
 
   test "get request to /game/123456789 shows an empty game board", %{conn: conn} do
-    conn = get conn, "/game/#{@empty_board}"
+    conn = get conn, @empty_board_url
     assert conn.state == :sent
     assert conn.status == 200
     assert conn.resp_body =~ link_to_move(1)
@@ -25,12 +26,12 @@ defmodule TicTacToe.PageControllerTest do
   end
 
   test "get request to /game/123456789/4 makes human and computer move on the board", %{conn: conn} do
-    conn = get conn, "/game/#{@empty_board}/4"
+    conn = get conn, "#{@empty_board_url}/4"
     assert conn.resp_body =~ "You are being <a href=\"/game/O23X56789\">redirected</a>"
   end
 
   test "get request to /game/123456789/4 redirects the user", %{conn: conn} do
-    conn = get conn, "/game/#{@empty_board}/4"
+    conn = get conn, "#{@empty_board_url}/4"
     assert html_response(conn, 302)
   end
 
@@ -42,7 +43,7 @@ defmodule TicTacToe.PageControllerTest do
   test "get request for /replay redirects user to new game", %{conn: conn} do
     conn = get conn, "/replay"
     assert html_response(conn, 302)
-    assert conn.resp_body =~ "You are being <a href=\"/game/#{@empty_board}\">redirected</a>"
+    assert conn.resp_body =~ "You are being <a href=\"#{@empty_board_url}\">redirected</a>"
   end
 
   defp link_to_move(move) do

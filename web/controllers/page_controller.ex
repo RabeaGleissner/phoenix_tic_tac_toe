@@ -1,9 +1,9 @@
 defmodule TicTacToe.PageController do
   use TicTacToe.Web, :controller
-  @empty_board "123456789"
+  @empty_board_url "/game/123456789"
 
   def index(conn, _) do
-    redirect conn, to: "/game/#{@empty_board}"
+    redirect conn, to: @empty_board_url
   end
 
   def game(conn, %{"board" => board}) do
@@ -25,7 +25,6 @@ defmodule TicTacToe.PageController do
   end
 
   defp play_computer_move(board) do
-    new_board =
     unless Board.game_over?(board) do
       UnbeatablePlayer.make_move(board)
     else
@@ -34,7 +33,7 @@ defmodule TicTacToe.PageController do
   end
 
   def replay(conn, _) do
-    redirect conn, to: "/game/#{@empty_board}"
+    redirect conn, to: @empty_board_url
   end
 
   defp convert_to_string(list) do
