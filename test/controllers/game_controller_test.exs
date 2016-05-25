@@ -1,4 +1,4 @@
-defmodule TicTacToe.PageControllerTest do
+defmodule TicTacToe.GameControllerTest do
   use TicTacToe.ConnCase
 
   @empty_board "123456789"

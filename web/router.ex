@@ -16,10 +16,10 @@ defmodule TicTacToe.Router do
   scope "/", TicTacToe do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    get "/game/:board", PageController, :game
-    get "/game/:board/:move", PageController, :make_move
-    get "/replay", PageController, :replay
+    get "/", GameController, :index
+    get "/game/:board", GameController, :game
+    get "/game/:board/:move", GameController, :make_move
+    get "/replay", GameController, :replay
   end
 
   # Other scopes may use custom stacks.

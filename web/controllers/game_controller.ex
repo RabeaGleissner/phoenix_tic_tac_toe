@@ -1,4 +1,4 @@
-defmodule TicTacToe.PageController do
+defmodule TicTacToe.GameController do
   use TicTacToe.Web, :controller
   @empty_board_url "/game/123456789"
 
